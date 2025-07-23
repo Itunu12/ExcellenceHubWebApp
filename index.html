@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyHub - University Student Resources Platform</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyHub</span>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#resources" class="nav-link">Resources</a>
+                <a href="#pricing" class="nav-link">Premium</a>
+                <a href="#about" class="nav-link">About</a>
+                <div class="nav-auth" id="nav-auth">
+                    <button class="btn btn-outline" onclick="showModal('loginModal')">Sign In</button>
+                    <button class="btn btn-primary" onclick="showModal('registerModal')">Register</button>
+                </div>
+                <div class="nav-user hidden" id="nav-user">
+                    <div class="user-dropdown">
+                        <button class="user-btn" id="user-btn">
+                            <i class="fas fa-user"></i>
+                            <span id="user-name">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="user-dropdown">
+                            <a href="#dashboard" onclick="showDashboard()"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                            <a href="#upload" onclick="showUpload()"><i class="fas fa-upload"></i> Upload</a>
+                            <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Home Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-background">
+                <div class="hero-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            Access Premium
+                            <span class="gradient-text">Academic Resources</span>
+                        </h1>
+                        <p class="hero-description">
+                            Download past questions, textbooks, lecture notes, and study materials from top universities. 
+                            Pay once, access forever.
+                        </p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary btn-large" onclick="showModal('registerModal')">
+                                Get Started Free
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <button class="btn btn-outline btn-large" onclick="showSection('resources')">
+                                Browse Resources
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="hero-card">
+                            <div class="card-header">
+                                <div class="card-dots">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="resource-item">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <div>
+                                        <h4>Mathematics Past Questions</h4>
+                                        <p>2020-2023 Collection</p>
+                                    </div>
+                                    <span class="price">Free</span>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-book"></i>
+                                    <div>
+                                        <h4>Chemistry Textbook</h4>
+                                        <p>Organic Chemistry Guide</p>
+                                    </div>
+                                    <span class="price">₦2,500</span>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-sticky-note"></i>
+                                    <div>
+                                        <h4>Computer Science Notes</h4>
+                                        <p>Data Structures & Algorithms</p>
+                                    </div>
+                                    <span class="price">₦1,500</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number" data-target="15000">0</h3>
+                            <p class="stat-label">Active Students</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number" data-target="1000">0</h3>
+                            <p class="stat-label">Study Resources</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number" data-target="50">0</h3>
+                            <p class="stat-label">Universities</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number" data-target="25000">0</h3>
+                            <p class="stat-label">Downloads</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Everything You Need to Succeed</h2>
+                    <p class="section-description">Access premium academic resources and contribute to the learning community</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="feature-title">Academic Resources</h3>
+                        <p class="feature-description">Download past questions, textbooks, lecture notes, and study guides</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Past exam questions with solutions</li>
+                            <li><i class="fas fa-check"></i> University textbooks & references</li>
+                            <li><i class="fas fa-check"></i> Lecture notes & course materials</li>
+                            <li><i class="fas fa-check"></i> Research papers & thesis samples</li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="showSection('resources')">
+                            <i class="fas fa-download"></i>
+                            Browse Resources
+                        </button>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-upload"></i>
+                        </div>
+                        <h3 class="feature-title">Upload & Share</h3>
+                        <p class="feature-description">Contribute to the community by uploading your study materials</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Upload your study materials</li>
+                            <li><i class="fas fa-check"></i> Earn from your uploads</li>
+                            <li><i class="fas fa-check"></i> Help fellow students succeed</li>
+                            <li><i class="fas fa-check"></i> Build your academic reputation</li>
+                        </ul>
+                        <button class="btn btn-outline" onclick="showUpload()">
+                            <i class="fas fa-upload"></i>
+                            Upload Resources
+                        </button>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Premium Access</h3>
+                        <p class="feature-description">Secure payment system with instant access to premium content</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Secure Paystack integration</li>
+                            <li><i class="fas fa-check"></i> Instant download access</li>
+                            <li><i class="fas fa-check"></i> Lifetime access to purchases</li>
+                            <li><i class="fas fa-check"></i> Mobile-friendly downloads</li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="showSection('pricing')">
+                            <i class="fas fa-credit-card"></i>
+                            View Pricing
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="resources-section hidden">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Study Resources</h2>
+                    <p class="section-description">Access our comprehensive collection of academic materials</p>
+                </div>
+                
+                <!-- Search and Filter -->
+                <div class="search-filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="resource-search" placeholder="Search resources..." onkeyup="filterResources()">
+                    </div>
+                    <div class="filter-dropdown">
+                        <select id="category-filter" onchange="filterResources()">
+                            <option value="">All Categories</option>
+                            <option value="past-questions">Past Questions</option>
+                            <option value="textbooks">Textbooks</option>
+                            <option value="lecture-notes">Lecture Notes</option>
+                            <option value="assignments">Assignments</option>
+                            <option value="research-papers">Research Papers</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="filterResources()">
+                        <i class="fas fa-filter"></i>
+                        Filter
+                    </button>
+                </div>
+                
+                <!-- Resources Grid -->
+                <div class="resources-grid" id="resources-grid">
+                    <!-- Resources will be loaded here by JavaScript -->
+                </div>
+                
+                <div class="load-more-container">
+                    <button class="btn btn-outline" id="load-more-btn" onclick="loadMoreResources()">
+                        Load More Resources
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing-section hidden">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Choose Your Plan</h2>
+                    <p class="section-description">All plans include access to our core features. Upgrade anytime to unlock more resources and benefits.</p>
+                </div>
+                
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3 class="plan-name">Basic</h3>
+                            <div class="plan-price">
+                                <span class="currency">₦</span>
+                                <span class="amount">2,500</span>
+                                <span class="period">/month</span>
+                            </div>
+                            <p class="plan-description">Perfect for getting started with premium content</p>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Access to 50+ premium resources</li>
+                                <li><i class="fas fa-check"></i> Basic skill programs</li>
+                                <li><i class="fas fa-check"></i> Email support</li>
+                                <li><i class="fas fa-check"></i> Mobile app access</li>
+                                <li><i class="fas fa-check"></i> Download up to 10 resources/month</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-outline btn-full" onclick="selectPlan('basic', 2500)">
+                            Start Basic Plan
+                        </button>
+                    </div>
+                    
+                    <div class="pricing-card popular">
+                        <div class="popular-badge">
+                            <i class="fas fa-star"></i>
+                            Most Popular
+                        </div>
+                        <div class="pricing-header">
+                            <h3 class="plan-name">Pro</h3>
+                            <div class="plan-price">
+                                <span class="currency">₦</span>
+                                <span class="amount">5,000</span>
+                                <span class="period">/month</span>
+                            </div>
+                            <p class="plan-description">Most popular choice for serious students</p>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Access to 200+ premium resources</li>
+                                <li><i class="fas fa-check"></i> All skill programs included</li>
+                                <li><i class="fas fa-check"></i> Priority email & chat support</li>
+                                <li><i class="fas fa-check"></i> Mobile & desktop app access</li>
+                                <li><i class="fas fa-check"></i> Unlimited downloads</li>
+                                <li><i class="fas fa-check"></i> Live webinars & workshops</li>
+                                <li><i class="fas fa-check"></i> Certificate of completion</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary btn-full" onclick="selectPlan('pro', 5000)">
+                            Start Pro Plan
+                        </button>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3 class="plan-name">Premium</h3>
+                            <div class="plan-price">
+                                <span class="currency">₦</span>
+                                <span class="amount">8,500</span>
+                                <span class="period">/month</span>
+                            </div>
+                            <p class="plan-description">Complete access with personalized mentorship</p>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Access to all premium resources</li>
+                                <li><i class="fas fa-check"></i> All skill programs + exclusive content</li>
+                                <li><i class="fas fa-check"></i> 24/7 priority support</li>
+                                <li><i class="fas fa-check"></i> All platform features</li>
+                                <li><i class="fas fa-check"></i> Unlimited everything</li>
+                                <li><i class="fas fa-check"></i> 1-on-1 mentorship sessions</li>
+                                <li><i class="fas fa-check"></i> Career guidance & job placement</li>
+                                <li><i class="fas fa-check"></i> Custom learning paths</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-outline btn-full" onclick="selectPlan('premium', 8500)">
+                            Start Premium Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section hidden">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">About StudyHub</h2>
+                    <p class="section-description">We're on a mission to democratize access to quality educational resources</p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Our Mission</h3>
+                        <p>StudyHub was created to solve a common problem faced by university students across Nigeria - the difficulty in accessing quality study materials, past questions, and academic resources.</p>
+                        <p>We believe that every student deserves access to the resources they need to excel academically, regardless of their location or financial situation.</p>
+                        
+                        <div class="about-features">
+                            <div class="about-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Affordable pricing for all students</span>
+                            </div>
+                            <div class="about-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Quality-assured content</span>
+                            </div>
+                            <div class="about-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Supporting student entrepreneurs</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-stats">
+                        <div class="about-stat">
+                            <h4>15,000+</h4>
+                            <p>Active Students</p>
+                        </div>
+                        <div class="about-stat">
+                            <h4>1,000+</h4>
+                            <p>Study Resources</p>
+                        </div>
+                        <div class="about-stat">
+                            <h4>50+</h4>
+                            <p>Universities</p>
+                        </div>
+                        <div class="about-stat">
+                            <h4>99.9%</h4>
+                            <p>Uptime</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="dashboard-section hidden">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h2>Welcome back, <span id="dashboard-user-name">Student</span>!</h2>
+                    <p>Here's an overview of your StudyHub activity and earnings.</p>
+                </div>
+                
+                <div class="dashboard-stats">
+                    <div class="dashboard-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-upload"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-uploads">0</h3>
+                            <p>Total Uploads</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-downloads">0</h3>
+                            <p>Total Downloads</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-naira-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-earnings">₦0</h3>
+                            <p>Total Earnings</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="pending-approval">0</h3>
+                            <p>Pending Approval</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-content">
+                    <div class="dashboard-main">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-file-alt"></i> Your Recent Uploads</h3>
+                            </div>
+                            <div class="card-content" id="recent-uploads">
+                                <div class="empty-state">
+                                    <i class="fas fa-upload"></i>
+                                    <h4>No uploads yet</h4>
+                                    <p>Start sharing your study materials and earn from your knowledge.</p>
+                                    <button class="btn btn-primary" onclick="showUpload()">
+                                        <i class="fas fa-upload"></i>
+                                        Upload Your First Resource
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-sidebar">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Quick Actions</h3>
+                            </div>
+                            <div class="card-content">
+                                <button class="btn btn-primary btn-full" onclick="showUpload()">
+                                    <i class="fas fa-upload"></i>
+                                    Upload New Resource
+                                </button>
+                                <button class="btn btn-outline btn-full" onclick="showSection('resources')">
+                                    <i class="fas fa-download"></i>
+                                    Browse Resources
+                                </button>
+                                <button class="btn btn-outline btn-full" onclick="showSection('pricing')">
+                                    <i class="fas fa-chart-line"></i>
+                                    View Premium Plans
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section id="upload" class="upload-section hidden">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Upload Academic Resource</h2>
+                    <p class="section-description">Share your study materials with fellow students and earn from your uploads</p>
+                </div>
+                
+                <div class="upload-content">
+                    <div class="upload-form-container">
+                        <form id="upload-form" class="upload-form">
+                            <div class="form-group">
+                                <label for="resource-title">Resource Title *</label>
+                                <input type="text" id="resource-title" required placeholder="e.g., Calculus I Past Questions 2020-2023">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="resource-description">Description *</label>
+                                <textarea id="resource-description" required placeholder="Provide a detailed description of your resource..."></textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="resource-category">Category *</label>
+                                    <select id="resource-category" required>
+                                        <option value="">Select category</option>
+                                        <option value="past-questions">Past Questions</option>
+                                        <option value="textbooks">Textbooks</option>
+                                        <option value="lecture-notes">Lecture Notes</option>
+                                        <option value="assignments">Assignments</option>
+                                        <option value="research-papers">Research Papers</option>
+                                        <option value="lab-manuals">Lab Manuals</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="resource-university">University *</label>
+                                    <select id="resource-university" required>
+                                        <option value="">Select university</option>
+                                        <option value="unilag">University of Lagos (UNILAG)</option>
+                                        <option value="ui">University of Ibadan (UI)</option>
+                                        <option value="oau">Obafemi Awolowo University (OAU)</option>
+                                        <option value="uniben">University of Benin (UNIBEN)</option>
+                                        <option value="abu">Ahmadu Bello University (ABU)</option>
+                                        <option value="unn">University of Nigeria, Nsukka (UNN)</option>
+                                        <option value="covenant">Covenant University</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="resource-course">Course *</label>
+                                    <input type="text" id="resource-course" required placeholder="e.g., Mathematics, Computer Science">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="resource-level">Level *</label>
+                                    <select id="resource-level" required>
+                                        <option value="">Select level</option>
+                                        <option value="100">100 Level</option>
+                                        <option value="200">200 Level</option>
+                                        <option value="300">300 Level</option>
+                                        <option value="400">400 Level</option>
+                                        <option value="500">500 Level</option>
+                                        <option value="postgraduate">Postgraduate</option>
+                                        <option value="all">All Levels</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="resource-price">Price (₦) *</label>
+                                <input type="number" id="resource-price" required min="0" placeholder="e.g., 500">
+                                <small>Set to 0 for free resources</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="resource-file">Upload File *</label>
+                                <div class="file-upload-area" id="file-upload-area">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Click to upload or drag and drop</p>
+                                    <small>PDF, DOC, DOCX (MAX. 50MB)</small>
+                                    <input type="file" id="resource-file" accept=".pdf,.doc,.docx" required>
+                                </div>
+                                <div class="file-info hidden" id="file-info">
+                                    <i class="fas fa-file"></i>
+                                    <span id="file-name"></span>
+                                    <span id="file-size"></span>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-large">
+                                <i class="fas fa-upload"></i>
+                                Upload Resource
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="upload-guidelines">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Upload Guidelines</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="guideline-section">
+                                    <h4>Accepted Formats</h4>
+                                    <ul>
+                                        <li>PDF documents</li>
+                                        <li>Microsoft Word (.doc, .docx)</li>
+                                        <li>Maximum file size: 50MB</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="guideline-section">
+                                    <h4>Quality Standards</h4>
+                                    <ul>
+                                        <li>Clear, readable content</li>
+                                        <li>Accurate information</li>
+                                        <li>Proper formatting</li>
+                                        <li>No copyrighted material</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="guideline-section">
+                                    <h4>Earning Potential</h4>
+                                    <ul>
+                                        <li>Earn 70% of each sale</li>
+                                        <li>Monthly payouts</li>
+                                        <li>Track your earnings</li>
+                                        <li>Build passive income</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>StudyHub</span>
+                    </div>
+                    <p>Empowering university students with quality academic resources, past questions, textbooks, and study materials to excel in their studies and career.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home" onclick="showSection('home')">Home</a></li>
+                        <li><a href="#resources" onclick="showSection('resources')">Resources</a></li>
+                        <li><a href="#pricing" onclick="showSection('pricing')">Premium</a></li>
+                        <li><a href="#about" onclick="showSection('about')">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@studyhub.com</li>
+                        <li><i class="fas fa-phone"></i> +234 123 456 7890</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Lagos, Nigeria</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 StudyHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Sign In</h2>
+                <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            </div>
+            <form id="login-form" class="modal-form">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                <p class="modal-footer-text">
+                    Don't have an account? 
+                    <a href="#" onclick="closeModal('loginModal'); showModal('registerModal')">Create one</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Account</h2>
+                <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            </div>
+            <form id="register-form" class="modal-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="register-firstname">First Name</label>
+                        <input type="text" id="register-firstname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-lastname">Last Name</label>
+                        <input type="text" id="register-lastname" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email Address</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-university">University</label>
+                    <select id="register-university" required>
+                        <option value="">Select your university</option>
+                        <option value="unilag">University of Lagos (UNILAG)</option>
+                        <option value="ui">University of Ibadan (UI)</option>
+                        <option value="oau">Obafemi Awolowo University (OAU)</option>
+                        <option value="uniben">University of Benin (UNIBEN)</option>
+                        <option value="abu">Ahmadu Bello University (ABU)</option>
+                        <option value="unn">University of Nigeria, Nsukka (UNN)</option>
+                        <option value="covenant">Covenant University</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="register-course">Course</label>
+                        <input type="text" id="register-course" required placeholder="e.g., Computer Science">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-level">Level</label>
+                        <select id="register-level" required>
+                            <option value="">Select level</option>
+                            <option value="100">100 Level</option>
+                            <option value="200">200 Level</option>
+                            <option value="300">300 Level</option>
+                            <option value="400">400 Level</option>
+                            <option value="500">500 Level</option>
+                            <option value="postgraduate">Postgraduate</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                <p class="modal-footer-text">
+                    Already have an account? 
+                    <a href="#" onclick="closeModal('registerModal'); showModal('loginModal')">Sign in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="success-title">Success!</h2>
+                <span class="close" onclick="closeModal('successModal')">&times;</span>
+            </div>
+            <div class="success-content">
+                <i class="fas fa-check-circle"></i>
+                <p id="success-message">Operation completed successfully!</p>
+                <button class="btn btn-primary" onclick="closeModal('successModal')">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/resources.js"></script>
+    <script src="js/upload.js"></script>
+</body>
+</html>
