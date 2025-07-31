@@ -7,7 +7,7 @@ export interface University {
   established: number;
 }
 
-export const nigerianUniversities: University[] = [
+export const universities: University[] = [
   // Federal Universities
   {
     id: "unilag",

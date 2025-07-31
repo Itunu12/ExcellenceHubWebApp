@@ -1,10 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { db } from "@/lib/firebase";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import type React from "react";
 import { toast } from "sonner";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -127,81 +127,28 @@ const courses = [
   "Forestry and Wildlife Management",
 ];
 
-export default function RegisterPage() {}
-const [formData, setFormData] = useState({
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-  university: "",
-  level: "",
-  course: "",
-});
-const [showPassword, setShowPassword] = useState(false);
-const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-const [loading, setLoading] = useState(false);
-const [error, setError] = useState("");
+export default function RegisterPage() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    university: "",
+    level: "",
+    course: "",
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-const { register, isDevelopment } = useAuth();
-const router = useRouter();
+  const { register, isDevelopment } = useAuth();
+  const router = useRouter();
 
-const handleInputChange = (field: string, value: string) => {
-  setFormData((prev) => ({ ...prev, [field]: value }));
-};
-
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setLoading(true);
-  setError("");
-
-  if (formData.password !== formData.confirmPassword) {
-    setError("Passwords do not match");
-    setLoading(false);
-    return;
-  }
-
-  if (formData.password.length < 6) {
-    setError("Password must be at least 6 characters long");
-    setLoading(false);
-    return;
-  }
-
-  try {
-    const user = await register({
-      email: formData.email,
-      password: formData.password,
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      university: formData.university,
-      level: formData.level,
-      course: formData.course,
-    });
-
-    // Add user document with initial activity
-    const userRef = doc(db, "users", user.uid);
-    await setDoc(userRef, {
-      uid: user.uid,
-      email: formData.email,
-      name: `${formData.firstName} ${formData.lastName}`,
-      university: formData.university,
-      level: formData.level,
-      course: formData.course,
-      activities: {
-        downloads: 0,
-        subscriptions: 0,
-        lastLogin: serverTimestamp(),
-      },
-      createdAt: serverTimestamp(),
-    });
-
-    toast.success("Signup successful!");
-    router.push("/dashboard");
-  } catch (error: any) {
-    setError(error.message || "Failed to create account");
-  } finally {
-    setLoading(false);
-  }
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
   const handleDemoFill = () => {
     setFormData({
@@ -214,6 +161,60 @@ const handleSubmit = async (e: React.FormEvent) => {
       level: "300",
       course: "Computer Science",
     });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const user = await register({
+        email: formData.email,
+        password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        university: formData.university,
+        level: formData.level,
+        course: formData.course,
+      });
+
+      // Add user document with initial activity
+      const userRef = doc(db, "users", user.uid);
+      await setDoc(userRef, {
+        uid: user.uid,
+        email: formData.email,
+        name: `${formData.firstName} ${formData.lastName}`,
+        university: formData.university,
+        level: formData.level,
+        course: formData.course,
+        activities: {
+          downloads: 0,
+          subscriptions: 0,
+          lastLogin: serverTimestamp(),
+        },
+        createdAt: serverTimestamp(),
+      });
+
+      toast.success("Signup successful!");
+      router.push("/dashboard");
+    } catch (error: any) {
+      setError(error.message || "Failed to create account");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -473,4 +474,4 @@ const handleSubmit = async (e: React.FormEvent) => {
       <Footer />
     </div>
   );
-};
+}
