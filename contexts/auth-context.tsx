@@ -11,6 +11,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import { db } from "@/lib/firebase";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+
 
 interface UserData {
   uid: string;
@@ -37,7 +40,7 @@ interface AuthContextType {
     university: string;
     level: string;
     course: string;
-  }) => Promise<void>;
+  }) => Promise<User>;
   logout: () => Promise<void>;
 }
 
@@ -125,34 +128,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     university: string;
     level: string;
     course: string;
-  }) => {
-    if (isDevelopment) {
-      // Demo registration
-      const demoUser = {
-        uid: "demo-user-123",
-        email: data.email,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        university: data.university,
-        level: data.level,
-        course: data.course,
-        isPremium: false,
-      };
-      setUserData(demoUser);
-      return;
-    }
-
+  }): Promise<User> => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
+
       await updateProfile(userCredential.user, {
         displayName: `${data.firstName} ${data.lastName}`,
       });
 
-      // In a real app, you'd save additional user data to Firestore
       setUserData({
         uid: userCredential.user.uid,
         email: data.email,
@@ -163,23 +150,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         course: data.course,
         isPremium: false,
       });
+
+      return userCredential.user; // ✅ return the user object
     } catch (error: any) {
       throw new Error(error.message);
     }
   };
 
   const logout = async () => {
-    if (isDevelopment) {
-      setUserData(null);
-      return;
-    }
+  if (isDevelopment) {
+    setUserData(null);
+    return;
+  }
 
-    try {
-      await signOut(auth);
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
-  };
+  try {
+    await signOut(auth);
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
 
   const value = {
     user,
